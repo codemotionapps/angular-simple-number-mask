@@ -1,39 +1,13 @@
-# angular-input-masks [![Build Status](https://travis-ci.org/assisrafael/angular-input-masks.svg?branch=master)](https://travis-ci.org/assisrafael/angular-input-masks) [![Coverage Status](https://coveralls.io/repos/assisrafael/angular-input-masks/badge.svg?branch=master)](https://coveralls.io/r/assisrafael/angular-input-masks?branch=master)
-
-[![NPM](https://nodei.co/npm/angular-input-masks.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/angular-input-masks/)
-
-[![Join the chat at https://gitter.im/assisrafael/angular-input-masks](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/assisrafael/angular-input-masks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Bountysource](https://www.bountysource.com/badge/team?team_id=60791&style=bounties_posted)](https://www.bountysource.com/teams/angular-input-masks/bounties?utm_source=angular-input-masks&utm_medium=shield&utm_campaign=bounties_posted)
-
-Opinionated angular input masks. Provides ready to use masks with little (br/inscricao-estadual) to no configuration (number, cnpj, etc).
-
-### Compatibility
-
-- angular-input-masks@~2: angular@^1.3 (however is only tested with 1.3) and [ECMAScript 5 compliant browsers](http://kangax.github.io/compat-table/es5/) (however CI only tests chrome and firefox).
-- angular-input-masks@~1: angular@~1.2
-
-
-## Installation
-
-With Bower:
-
-```
-bower install --save angular-input-masks
-```
-
-With npm:
-
-```
-npm install --save angular-input-masks
-```
+# angular-simple-number-mask
 
 ## Configuration
 
 ### With bower or npm (without browserify):
 
-1. Import the ```angular-input-masks-standalone.min.js``` script in your page. For example:
+1. Import the ```angular-simple-number-mask-standalone.min.js``` script in your page. For example:
 
 ```
-<script src="angular-input-masks-standalone.min.js"></script>
+<script src="angular-simple-number-mask-standalone.min.js"></script>
 ```
 
 Obs: for npm the build scripts are available inside ```build``` folder.
@@ -41,18 +15,14 @@ Obs: for npm the build scripts are available inside ```build``` folder.
 2. Include the module name ```number-mask``` in your angular app. For example:
 
 ```
-angular.module('app', ['number-mask']);
+angular.module('app', ['numberMask']);
 ```
 
 ### With npm and browserify:
 
 ```
-angular.module('demo', [require('angular-input-masks')]);
+angular.module('demo', [require('numberMask')]);
 ```
-
-## Internationalization
-
-The mask is internationalized, so you need to include the proper angular-locale in your app(see: https://docs.angularjs.org/guide/i18n).
 
 ## How to use
 
@@ -60,34 +30,20 @@ The mask is internationalized, so you need to include the proper angular-locale 
 <input type="text" name="field" data-ng-model="hours" data-add-string=" hours">
 ```
 
-- You can set the number of decimals (default is 2):
+- Support to the ```min``` and ```max``` attributes.
 
-```html
-<input type="text" name="field" ng-model="percentage" ui-percentage-mask="4">
-```
+- Internationalized: Uses the decimal separator and thousands separator defined in the client browser configuration.
 
-- The $modelValue is the $viewValue / 100, so $viewValue - 100% = $modelValue - 1
-
-- You can use the same value in $modelValue and $viewValue using ```ui-percentage-value```:
-
-```html
-<input type="text" name="field" ng-model="percentage" ui-percentage-mask ui-percentage-value>
-```
-
-- Support to the ```min```, ```max``` and ```ui-hide-group-sep``` attributes.
-
-- Internationalized: Used the decimal separator and thousands separator defined in the client browser configuration.
-
-## Another build options
+## Other ways to use
 
 If you are using bower or npm (without browserify):
 
-- angular-input-masks-dependencies.js: provides all external dependencies (string-mask, br-validations, momentjs)
-- angular-input-masks.js: provides all directives, and does not include external dependencies (string-mask, br-validations, momentjs)
+- angular-simple-number-mask-dependencies.js: provides all external dependencies (string-mask, br-validations)
+- angular-simple-number-mask.js: provides all directives, and does not include external dependencies (string-mask, br-validations)
 
 If you are using npm with browserify:
 
-- ```require('angular-input-masks')```
+- ```require('angular-simple-number-mask')```
 
 ## Build
 
