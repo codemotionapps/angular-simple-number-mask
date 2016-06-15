@@ -217,10 +217,10 @@ function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
 				backspacePressed = false,
 				string;
 
-			if (angular.isDefined(attrs.uiString)) {
+			if (!attrs.addString.trim()) {
 				string = attrs.uiString;
 			}else{
-				throw "ui-string undefined";
+				throw "String undefined";
 			}
 			
 			element.bind('keydown keypress', function(event) {
