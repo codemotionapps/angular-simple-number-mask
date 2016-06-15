@@ -24,7 +24,7 @@ function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
 				string;
 
 			if (attrs.addString.trim()) {
-				string = attrs.uiString;
+				string = attrs.addString;
 			}else{
 				throw "String undefined";
 			}
