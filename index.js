@@ -1,5 +1,5 @@
 'use strict';
 
-var moduleName = require('./src/angular-input-masks.js');
+var moduleName = require('./src/angular-simple-number-mask.js');
 
 module.exports = moduleName;
