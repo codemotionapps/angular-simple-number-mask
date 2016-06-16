@@ -27,7 +27,7 @@ angular.module('demo', [require('numberMask')]);
 ## How to use
 
 ```html
-<input type="text" name="field" data-ng-model="hours" data-add-string=" hours">
+<input type="text" name="field" data-ng-model="hours" data-add-string="stringToAdd">
 ```
 
 - Support to the ```min``` and ```max``` attributes.

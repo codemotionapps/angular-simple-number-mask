@@ -200,9 +200,9 @@
 }));
 
 },{}],2:[function(require,module,exports){
-'use strict';
-
 function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
+	'use strict';
+	
 	function preparePercentageToFormatter(value, decimals, modelMultiplier) {
 		return PreFormatters.clearDelimiters((parseFloat(value)*modelMultiplier).toFixed(decimals));
 	}
@@ -210,18 +210,13 @@ function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
 	return {
 		restrict: 'A',
 		require: 'ngModel',
+		scope: false,
 		link: function(scope, element, attrs, ctrl) {
 			var decimalDelimiter = $locale.NUMBER_FORMATS.DECIMAL_SEP,
 				thousandsDelimiter = $locale.NUMBER_FORMATS.GROUP_SEP,
 				decimals = 0,
 				backspacePressed = false,
-				string;
-
-			if (attrs.addString.trim()) {
-				string = attrs.addString;
-			}else{
-				throw "String undefined";
-			}
+				string = scope[attrs.addString];
 			
 			element.bind('keydown keypress', function(event) {
 				backspacePressed = event.which === 8;

@@ -6,9 +6,9 @@
  * @license MIT
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
-
 function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
+	'use strict';
+	
 	function preparePercentageToFormatter(value, decimals, modelMultiplier) {
 		return PreFormatters.clearDelimiters((parseFloat(value)*modelMultiplier).toFixed(decimals));
 	}
@@ -16,18 +16,13 @@ function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
 	return {
 		restrict: 'A',
 		require: 'ngModel',
+		scope: false,
 		link: function(scope, element, attrs, ctrl) {
 			var decimalDelimiter = $locale.NUMBER_FORMATS.DECIMAL_SEP,
 				thousandsDelimiter = $locale.NUMBER_FORMATS.GROUP_SEP,
 				decimals = 0,
 				backspacePressed = false,
-				string;
-
-			if (attrs.addString.trim()) {
-				string = attrs.addString;
-			}else{
-				throw "String undefined";
-			}
+				string = scope[attrs.addString];
 			
 			element.bind('keydown keypress', function(event) {
 				backspacePressed = event.which === 8;
