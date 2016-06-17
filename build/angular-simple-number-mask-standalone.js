@@ -236,6 +236,7 @@ function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
 				modelMask = NumberMasks.modelMask(numberDecimals);
 
 			function formatter(value) {
+				console.log("formatter", value);
 				if (ctrl.$isEmpty(value)) {
 					return value;
 				}
@@ -245,6 +246,7 @@ function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
 			}
 
 			function parse(value) {
+				console.log("parser", value);
 				if (ctrl.$isEmpty(value)) {
 					return null;
 				}
@@ -272,7 +274,7 @@ function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
 
 			if (attrs.min) {
 				var minVal;
-
+				
 				ctrl.$validators.min = function(modelValue) {
 					var min = parseFloat(minVal, 10);
 					return ctrl.$isEmpty(modelValue) || isNaN(min) || modelValue >= min;
@@ -285,16 +287,31 @@ function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
 			}
 
 			if (attrs.max) {
-				var maxVal;
-
-				ctrl.$validators.max = function(modelValue) {
-					var max = parseFloat(maxVal, 10);
-					return ctrl.$isEmpty(modelValue) || isNaN(max) || modelValue <= max;
-				};
+				if(attrs.maxMethod === "oldval"){
+					console.log("oldval");
+					ctrl.$parsers.push(function(modelValue){
+						console.log(91, modelValue);
+						var max = parseFloat(attrs.max, 10);
+						if(ctrl.$isEmpty(modelValue) || isNaN(max) || modelValue <= max){
+							console.log(94, true);
+							return modelValue;
+						}else{
+							console.log(97, max);
+							ctrl.$modelValue = max;
+							return max;
+						}
+					});
+				}else{
+					ctrl.$validators.max = function(modelValue) {
+						var max = parseFloat(attrs.max, 10);
+						return ctrl.$isEmpty(modelValue) || isNaN(max) || modelValue <= max;
+					};
+				}
 
 				scope.$watch(attrs.max, function(value) {
-					maxVal = value;
-					ctrl.$validate();
+					if(attrs.maxMethod !== "oldval"){
+						ctrl.$validate();
+					} // TODO: else
 				});
 			}
 		}

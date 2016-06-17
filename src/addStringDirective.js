@@ -70,7 +70,7 @@ function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
 
 			if (attrs.min) {
 				var minVal;
-
+				
 				ctrl.$validators.min = function(modelValue) {
 					var min = parseFloat(minVal, 10);
 					return ctrl.$isEmpty(modelValue) || isNaN(min) || modelValue >= min;
@@ -83,16 +83,27 @@ function PercentageMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
 			}
 
 			if (attrs.max) {
-				var maxVal;
-
-				ctrl.$validators.max = function(modelValue) {
-					var max = parseFloat(maxVal, 10);
-					return ctrl.$isEmpty(modelValue) || isNaN(max) || modelValue <= max;
-				};
+				if(attrs.maxMethod === "oldval"){
+					ctrl.$parsers.push(function(modelValue){
+						var max = parseFloat(attrs.max, 10);
+						if(ctrl.$isEmpty(modelValue) || isNaN(max) || modelValue <= max){
+							return modelValue;
+						}else{
+							ctrl.$modelValue = max;
+							return max;
+						}
+					});
+				}else{
+					ctrl.$validators.max = function(modelValue) {
+						var max = parseFloat(attrs.max, 10);
+						return ctrl.$isEmpty(modelValue) || isNaN(max) || modelValue <= max;
+					};
+				}
 
 				scope.$watch(attrs.max, function(value) {
-					maxVal = value;
-					ctrl.$validate();
+					if(attrs.maxMethod !== "oldval"){
+						ctrl.$validate();
+					} // TODO: else
 				});
 			}
 		}
